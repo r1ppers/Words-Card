@@ -31,7 +31,11 @@ namespace EnglishCards
 
         private void DeserializeCreateButton()
         {
-            wordsList = DeserializeXML();
+            try
+            {
+                wordsList = DeserializeXML();
+            }
+            catch { return; }
             foreach(Word item in wordsList.words)
             {
                 CreateButton(item);
@@ -65,9 +69,9 @@ namespace EnglishCards
         }
         private void SerializeXML(Words words)
         {
-            string path = "C:\\Users\\User\\Desktop\\Words\\Words.xml";
+            string path = "C:\\Users\\User\\Desktop\\Я\\Words\\Words.xml";
             XmlSerializer xml = new XmlSerializer(typeof(Words));
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(path, FileMode.Create))
             {
                 xml.Serialize(fs, words);
             }
@@ -75,9 +79,9 @@ namespace EnglishCards
 
         private Words DeserializeXML()
         {
-            string path = "C:\\Users\\User\\Desktop\\Words\\Words.xml";
+            string path = "C:\\Users\\User\\Desktop\\Я\\Words\\Words.xml";
             XmlSerializer xml = new XmlSerializer(typeof(Words));
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(path, FileMode.Open))
             {
                 return (Words)xml.Deserialize(fs);
             }
